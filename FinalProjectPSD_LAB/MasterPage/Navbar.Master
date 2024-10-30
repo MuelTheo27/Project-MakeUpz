@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Navbar.master.cs" Inherits="FinalProjectPSD_LAB.MasterPage.Navbar" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+           <nav>
+        <%if (Session["user"] == null)
+            {
+        %>
+        <asp:Button ID="RegisterBtn" runat="server" Text="Register" Width="60px" OnClick="RegisterBtn_Click" />
+        <asp:Button ID="LoginBtn" runat="server" Text="Login" style="margin-left: 10px" OnClick="LoginBtn_Click" />
+        <%}
+            else
+            {
+                if (((FinalProjectPSD_LAB.Models.User)Session["user"]).UserRole == "customer")
+                {%>
+        <asp:Button ID="OrderBtn" runat="server" Text="Order" style="margin-left: 10px" OnClick="OrderBtn_Click"/>
+        <asp:Button ID="HistoryBtn" runat="server" Text="History" style="margin-left: 10px" OnClick="HistoryBtn_Click"/>
+        <asp:Button ID="ProfileBtn" runat="server" Text="Profile" style="margin-left: 10px" OnClick="ProfileBtn_Click"/>
+        <%}
+            else if (((FinalProjectPSD_LAB.Models.User)Session["user"]).UserRole == "admin")
+            { %>
+               <asp:Button ID="ViewUserBtn" runat="server" Text="View User"  style="margin-left: 10px" OnClick="ViewUserBtn_Click" />
+               <asp:Button ID="InsertDllBtn" runat="server" Text="Manage Makeup"  style="margin-left: 10px" OnClick="InsertDllBtn_Click" />
+               <asp:Button ID="AdminprofileBtn" runat="server" Text="Profile" style="margin-left: 10px" OnClick="AdminprofileBtn_Click" />
+        <%} %>
+        <asp:Button ID="LogoutBtn" runat="server" Text="Logout" OnClick="LogoutBtn_Click" />
+    <%} %>
+</nav>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
